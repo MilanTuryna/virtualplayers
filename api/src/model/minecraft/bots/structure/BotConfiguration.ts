@@ -1,7 +1,7 @@
 interface BotConfiguration {
     username: string,
     customDescription: string,
-    instanced: true,
+    instanced: boolean,
     password: string,
     host: string,
     port: number,
