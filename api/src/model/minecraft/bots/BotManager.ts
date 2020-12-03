@@ -1,7 +1,7 @@
 import {FileReader} from "../../../helpers/filesystem/FileReader";
 import * as mineflayer from "mineflayer";
 import {BotInstance} from "./structure/BotInstance";
-import {BotNotFoundException} from "./BotExceptions";
+import {BotExistsException, BotNotFoundException} from "./BotExceptions";
 
 /**
  * Class for manipulating with bots
@@ -60,6 +60,13 @@ export class BotManager {
             chatLog: []
         };
     }
+
+    public createNewBot(botConfiguration: BotConfiguration) {
+        if (this.botExists(botConfiguration.username)) throw new BotExistsException("Bot can't be created, because it already exists.", 403);
+        this.storageReader.createFile(botConfiguration.username + ".json", JSON.stringify(botConfiguration));
+        this.loadFiles();
+    }
+
 
     public getBotsList(): {} {
         return this.botsList;
