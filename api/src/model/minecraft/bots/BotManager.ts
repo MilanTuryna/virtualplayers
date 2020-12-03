@@ -30,23 +30,32 @@ export class BotManager {
             }).catch(e => console.error(e));
     }
 
+    /**
+     * @param botName
+     */
     public getBotConfiguration(botName: string): BotConfiguration {
         if(!Object.keys(this.botsList).includes(botName))
             throw new BotNotFoundException("Player not found", 404);
         return <BotConfiguration> this.botsList[botName];
     }
 
+    /**
+     * @param botName
+     */
     public botExists(botName: string): boolean {
         return Object.keys(this.botsList).includes(botName);
     }
 
+    /**
+     * @param botName
+     */
     public getBotInstance(botName: string): BotInstance {
         let botsInstance = this.botsInstance[botName];
         if(botsInstance) return botsInstance;
         let configuration = this.getBotConfiguration(botName);
         let minecraftBot = mineflayer.createBot( {
             host: configuration.host,
-            port: 25565,
+            port: configuration.port || 25565,
             username: configuration.username
         });
         this.botsList[botName].instanced = true;
@@ -61,13 +70,15 @@ export class BotManager {
         };
     }
 
+    /**
+     * @param botConfiguration
+     */
     public createNewBot(botConfiguration: BotConfiguration) {
         if (this.botExists(botConfiguration.username)) throw new BotExistsException("Bot can't be created, because it already exists.", 403);
         this.storageReader.createFile(botConfiguration.username + ".json", JSON.stringify(botConfiguration));
         this.loadFiles();
     }
-
-
+    
     public getBotsList(): {} {
         return this.botsList;
     }
