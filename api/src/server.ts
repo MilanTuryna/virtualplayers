@@ -44,7 +44,7 @@ app.get('/bots/:nickname/instance', function (req, res) {
             };
             res.json(responseJson);
         } catch (exception) {
-            let code = exception.code || 503;
+            let code = exception.httpCode || 503;
             let errorObject: {} = {
                 error: true,
                 name: exception.name,
