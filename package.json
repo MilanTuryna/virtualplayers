@@ -1,5 +1,7 @@
 {
   "name": "virtualplayers",
+  "author": "Milan Turyna",
+  "description": "A web-based application for creating virtual players on Minecraft multiplayer servers",
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",

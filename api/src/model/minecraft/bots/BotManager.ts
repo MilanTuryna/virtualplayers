@@ -3,11 +3,17 @@ import * as mineflayer from "mineflayer";
 import {BotInstance} from "./structure/BotInstance";
 import {BotNotFoundException} from "./BotExceptions";
 
+/**
+ * Class for manipulating with bots
+ */
 export class BotManager {
     private storageReader: FileReader;
     private readonly botsList: {};
     private readonly botsInstance: {};
 
+    /**
+     * @param storageReader FileReader with instanced bots data folder
+     */
     constructor(storageReader: FileReader) {
         this.storageReader = storageReader;
         this.botsList = {};
@@ -30,7 +36,7 @@ export class BotManager {
         return <BotConfiguration> this.botsList[botName];
     }
 
-    public botExists(botName: string) {
+    public botExists(botName: string): boolean {
         return Object.keys(this.botsList).includes(botName);
     }
 
