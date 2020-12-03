@@ -1,6 +1,8 @@
 {
-  "name": "VirtualPlayer",
+  "username": "VirtualPlayer",
   "customDescription": "dada",
+  "instanced": false,
+  "password": null,
   "host": "localhost",
-  "password": ""
+  "port": 25565
 }
