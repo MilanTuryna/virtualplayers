@@ -22,11 +22,10 @@ app.get('/bots', (req, res) => {
     res.json(options);
 });
 app.get('/bots/:nickname/instance', function (req, res) {
-    let botName = req.params.nickname;
-        let botInstance = botManager.getBotInstance(botName);
-        let minecraftBot = botInstance.minecraftBot;
-        let error = botManager.getError();
-        if(!error.activeError) {
+        let botName = req.params.nickname;
+        try {
+            let botInstance = botManager.getBotInstance(botName);
+            let minecraftBot = botInstance.minecraftBot;
             let responseJson: {} = {
                 bot: {
                     minecraft: {
@@ -44,8 +43,15 @@ app.get('/bots/:nickname/instance', function (req, res) {
                 }
             };
             res.json(responseJson);
-        } else {
-            res.status(error.code).json(<{}>error);
+        } catch (exception) {
+            let code = exception.code || 503;
+            let errorObject: {} = {
+                error: true,
+                name: exception.name,
+                code: code,
+                reason: exception.message
+            };
+            res.status(code).json(errorObject);
         }
 });
 
