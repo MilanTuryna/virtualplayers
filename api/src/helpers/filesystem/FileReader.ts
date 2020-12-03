@@ -30,4 +30,10 @@ export class FileReader {
             });
         });
     }
+
+    createFile(file, content) {
+        fs.writeFile(this.dirname + file, content, { flag: 'wx' }, function (err) {
+            if (err) throw err;
+        });
+    }
 }
