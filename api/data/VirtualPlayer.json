@@ -1,7 +1,6 @@
 {
   "name": "VirtualPlayer",
   "customDescription": "dada",
-  "server": "localhost",
-  "instanced": false,
+  "host": "localhost",
   "password": ""
 }
