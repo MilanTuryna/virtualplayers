@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "api/build",
+    "module": "commonjs",
+    "target": "es5",
+    "removeComments": true,
+    "sourceMap": true
+  },
+  "include": ["api/src/**/*"],
+  "exclude": [
+    "node_modules"
+  ]
+}
