@@ -8,3 +8,4 @@ export class BotException extends Error {
     }
 }
 export class BotNotFoundException extends BotException {}
+export class BotExistsException extends BotException {}
