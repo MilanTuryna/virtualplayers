@@ -1,23 +1,17 @@
 import {FileReader} from "../../../helpers/filesystem/FileReader";
 import * as mineflayer from "mineflayer";
 import {BotInstance} from "./structure/BotInstance";
-import {BotError} from "./structure/BotError";
+import {BotNotFoundException} from "./BotExceptions";
 
 export class BotManager {
     private storageReader: FileReader;
     private readonly botsList: {};
     private readonly botsInstance: {};
-    private readonly error: BotError;
 
     constructor(storageReader: FileReader) {
         this.storageReader = storageReader;
         this.botsList = {};
         this.botsInstance = {};
-        this.error = {
-            activeError: false,
-            code: null,
-            reason: null,
-        }
     }
 
     public loadFiles() {
@@ -31,12 +25,8 @@ export class BotManager {
     }
 
     public getBotConfiguration(botName: string): BotConfiguration {
-        if(!Object.keys(this.botsList).includes(botName)) {
-            this.error.activeError = true;
-            this.error.code = 404;
-            this.error.reason = "Player not found";
-            return null;
-        }
+        if(!Object.keys(this.botsList).includes(botName))
+            throw new BotNotFoundException("Player not found", 404);
         return <BotConfiguration> this.botsList[botName];
     }
 
@@ -63,10 +53,6 @@ export class BotManager {
             minecraftBot: minecraftBot,
             chatLog: []
         };
-    }
-
-    getError(): BotError {
-        return this.error;
     }
 
     public getBotsList(): {} {
